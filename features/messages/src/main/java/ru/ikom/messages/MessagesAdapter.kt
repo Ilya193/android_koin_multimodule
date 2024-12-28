@@ -7,11 +7,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.ikom.messages.databinding.ItemMessageBinding
 
-class MessagesAdapter : ListAdapter<Message, MessagesAdapter.ViewHolder>(DiffMessages()) {
+class MessagesAdapter(
+    private val onClick: (String) -> Unit
+) : ListAdapter<Message, MessagesAdapter.ViewHolder>(DiffMessages()) {
 
     inner class ViewHolder(
         private val binding: ItemMessageBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onClick(getItem(position).message)
+                }
+            }
+        }
 
         fun bind(item: Message) {
             binding.message.text = item.message

@@ -46,6 +46,10 @@ class RootFragment : Fragment() {
         }
     }
 
+    private fun onOpenDetails(name: String) {
+        fragmentFactoryImpl.detailsFragment().setArguments(name).show(childFragmentManager, null)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -55,6 +59,7 @@ class RootFragment : Fragment() {
         override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
             return when (loadFragmentClass(classLoader, className)) {
                 MessagesFragment::class.java -> messagesFragment()
+                DetailsFragment::class.java -> detailsFragment()
                 else -> super.instantiate(classLoader, className)
             }
         }
@@ -62,6 +67,9 @@ class RootFragment : Fragment() {
         fun messagesFragment(): MessagesFragment =
             MessagesFragment(
                 repository = deps.repository,
+                onOpenDetails = ::onOpenDetails
             )
+
+        fun detailsFragment(): DetailsFragment = DetailsFragment()
     }
 }

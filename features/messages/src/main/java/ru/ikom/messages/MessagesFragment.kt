@@ -14,13 +14,14 @@ import ru.ikom.domain.Repository
 
 class MessagesFragment(
     private val repository: Repository,
+    onOpenDetails: (String) -> Unit
 ) : Fragment() {
 
     private val viewModel: MessagesViewModel by viewModel {
         parametersOf(repository)
     }
 
-    private val adapter = MessagesAdapter()
+    private val adapter = MessagesAdapter(onOpenDetails)
 
     override fun onCreateView(
         inflater: LayoutInflater,
