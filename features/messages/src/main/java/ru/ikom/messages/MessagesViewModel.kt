@@ -12,13 +12,15 @@ class MessagesViewModel(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow("")
-    val state: StateFlow<String> get() = _state.asStateFlow()
+    private val _state = MutableStateFlow<List<Message>>(emptyList())
+    val state: StateFlow<List<Message>> get() = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
             repository.fetchMessages().collect {
-                _state.value = it.toString()
+                val newMessages = _state.value.toMutableList()
+                newMessages.add(Message(_state.value.size, it + "${newMessages.size}"))
+                _state.value = newMessages
             }
         }
     }

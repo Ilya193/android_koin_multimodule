@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -20,6 +21,8 @@ class MessagesFragment(
         parametersOf(repository)
     }
 
+    private val adapter = MessagesAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,11 +34,14 @@ class MessagesFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textView = view.findViewById<TextView>(R.id.textview)
+        val messages = view.findViewById<RecyclerView>(R.id.messages)
+
+        messages.adapter = adapter
+        messages.setHasFixedSize(true)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect {
-                textView.text = it.toString()
+                adapter.submitList(it)
             }
         }
     }

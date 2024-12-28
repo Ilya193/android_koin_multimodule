@@ -7,6 +7,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.commit
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.getKoin
+import org.koin.android.ext.android.inject
+import org.koin.android.scope.AndroidScopeComponent
 import ru.ikom.domain.Repository
 import ru.ikom.messages.MessagesDeps
 import ru.ikom.messages.RootFragment

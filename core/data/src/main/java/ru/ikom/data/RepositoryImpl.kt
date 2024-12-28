@@ -7,13 +7,10 @@ import ru.ikom.domain.Repository
 
 class RepositoryImpl : Repository {
 
-    private val messages = mutableListOf<String>()
-
-    override fun fetchMessages(): Flow<List<String>> = callbackFlow {
+    override fun fetchMessages(): Flow<String> = callbackFlow {
         while (true) {
-            delay(1000)
-            messages.add("Message ${messages.size}")
-            send(messages)
+            delay(700)
+            send("Message")
         }
     }
 }
