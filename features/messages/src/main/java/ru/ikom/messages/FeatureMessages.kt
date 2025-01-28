@@ -6,7 +6,7 @@ import org.koin.dsl.module
 val featureMessages = module {
     viewModel<MessagesDepsViewModel> { params ->
         MessagesDepsViewModel(
-            deps = params.get()
+            repository = get(),
         )
     }
 
