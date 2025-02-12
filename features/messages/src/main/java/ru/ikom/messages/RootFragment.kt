@@ -21,6 +21,8 @@ class RootFragment : Fragment() {
         childFragmentManager.fragmentFactory = fragmentFactoryImpl
         super.onCreate(savedInstanceState)
 
+        // test
+
         if (savedInstanceState == null) {
             childFragmentManager.commit {
                 replace(R.id.content, fragmentFactoryImpl.messagesFragment())
