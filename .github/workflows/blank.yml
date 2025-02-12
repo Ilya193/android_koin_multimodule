@@ -19,7 +19,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '9' # Укажите нужную версию JDK
+          java-version: '8' # Укажите нужную версию JDK
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
